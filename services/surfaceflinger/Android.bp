@@ -35,7 +35,12 @@ cc_defaults {
         "-Wunreachable-code",
         "-Wconversion",
         "-DANDROID_UTILS_REF_BASE_DISABLE_IMPLICIT_CONSTRUCTION",
-    ],
+    ] + select(soong_config_variable("surfaceflinger", "frame_rate_category_high"), {
+        any @ value: [
+            "-DFRAME_RATE_CATEGORY_HIGH=" + value,
+        ],
+        default: [],
+    }),
 }
 
 cc_defaults {
